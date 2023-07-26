@@ -1,4 +1,5 @@
 import { Typography, Card, IconButton, AspectRatio, CardContent, Button } from '@mui/joy';
+import { Link } from 'react-router-dom';
 
 export default function RecipeCard({ meal }: { meal: any }) {
   return (
@@ -15,7 +16,7 @@ export default function RecipeCard({ meal }: { meal: any }) {
           size="sm"
           sx={{ position: 'absolute', top: '0.5rem', right: '0.5rem' }}
         >
-          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><path d="M5 0v24l7-6 7 6v-24h-14zm1 1h12v20.827l-6-5.144-6 5.144v-20.827z" /></svg>
+          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd"><path d="M5 0v24l7-6 7 6v-24h-14zm1 1h12v20.827l-6-5.144-6 5.144v-20.827z" /></svg>
         </IconButton>
       </div>
       <AspectRatio minHeight="120px" maxHeight="200px">
@@ -32,15 +33,11 @@ export default function RecipeCard({ meal }: { meal: any }) {
             $2,900
           </Typography>
         </div> */}
-        <Button
-          variant="solid"
-          size="sm"
-          color="primary"
-          aria-label="Explore Bahamas Islands"
-          sx={{ ml: 'auto', fontWeight: 600 }}
-        >
-          Explore
-        </Button>
+        <Link to={`/recipe/${meal.idMeal}`}>
+          <Button type='solid' sx={{ ml: 'auto' }}>
+            Explore
+          </Button>
+        </Link>
       </CardContent>
     </Card>
   )

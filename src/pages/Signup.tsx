@@ -23,8 +23,9 @@ export default function Signup() {
       setIsSuccess(false);
       toast.error(error.message + '.');
     } else {
+      console.log('26' + data);
       if (data!.user!.id !== null) {
-        await supabase.from('Users').insert([{ id: data!.user!.id, name: event.target.name.value }])
+        await supabase.from('users').insert([{ id: data!.user!.id, name: event.target.name.value }])
           .then((res: any) => {
             console.log(res);
             setIsSuccess(true);

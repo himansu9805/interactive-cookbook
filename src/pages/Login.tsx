@@ -17,7 +17,6 @@ export default function Login() {
 
   const handleLogin = async (event: any) => {
     event.preventDefault();
-    console.log(event.target.email.value);
     setIsLoading(true);
     const { data, error } = await supabase.auth.signInWithPassword({
       email: event.target.email.value,
@@ -28,8 +27,10 @@ export default function Login() {
       setIsSuccess(false);
       toast.error(error.message + '.');
     } else {
-      setUser({ id: data.user.id, email: data.user.email! });
-      setIsSuccess(true);
+      await supabase.from('users').select('*').eq('id', data!.user!.id).then((res: any) => {
+        setUser({ id: data.user.id, email: data.user.email!, name: res.data[0].name, preferences: res.data[0].preferences });
+        setIsSuccess(true);
+      });
     }
   }
 
@@ -51,8 +52,8 @@ export default function Login() {
             {
               isSuccess === undefined ?
                 null : isSuccess === false ?
-                  < Toaster richColors position="bottom-left" /> :
-                  <Navigate to='/dashboard' />
+                  <Toaster richColors position="bottom-left" /> :
+                  <Navigate to='/home' />
             }
             <Box sx={{ width: { xs: '75%', md: '50%' } }}>
               <form onSubmit={handleLogin}>
